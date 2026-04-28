@@ -10,19 +10,11 @@ import gstRoutes from './routes/gstRoutes.js';
 
 const app = express();
 
-const ALLOWED_ORIGINS = (process.env.CLIENT_ORIGIN || 'http://localhost:5173')
-  .split(',')
-  .map((o) => o.trim());
-
 app.use(
   cors({
-    origin: (origin, cb) => {
-      // Allow requests with no origin (server-to-server, curl, etc.)
-      if (!origin) return cb(null, true);
-      if (ALLOWED_ORIGINS.includes(origin)) return cb(null, true);
-      cb(null, false);
-    },
-    credentials: true,
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 
